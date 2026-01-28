@@ -11,10 +11,7 @@ export default function Navbar() {
       <nav className="bg-white border-b border-gray-200 ">
         <div className="container w-[80%] mx-auto py-4 ">
           <div className="flex items-center justify-between ">
-            <ul className="flex gap-8">
-              <li>
-                <Link href="/cart" className={path == "/cart" ? "active" : " text-sm text-gray-600 hover:text-black"}>CART</Link>
-              </li>
+            <ul className="flex gap-5">
               <li>
                 <Link href="/products" className={path == "/products" ? "active" : "text-sm text-gray-600 hover:text-black"}>PRODUCTS</Link >
               </li>
@@ -26,7 +23,7 @@ export default function Navbar() {
               </li>
             </ul>
 
-            <Link href="/" className="text-2xl me-24  tracking-wider">HEAVENLY</Link>
+            <Link href="/" className="text-2xl   tracking-wider">HEAVENLY</Link>
 
             <ul className="flex  gap-4">
                 <Link href="" className="p-2 hover:bg-gray-100 rounded-full">

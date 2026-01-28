@@ -15,6 +15,8 @@ export default function ProductCard({ prod }) {
                         alt={"asasas"}
                         className="w-full h-full object-cover"
                     />
+                <div className="absolute inset-0 bg-linear-to-t from-black/10 via-black/10 to-black/10"></div>
+
                 </div>
 
                 </Link>
@@ -28,7 +30,7 @@ export default function ProductCard({ prod }) {
 
                 {/* Product Info Button at Bottom */}
                 <div className="absolute bottom-6 left-6 right-6">
-                    <button className="w-full bg-gray-100  backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between group hover:bg-amber-100 transition-all shadow-lg">
+                    <button className="w-full bg-white  backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between group transition-all shadow-lg">
                         <div className="text-left">
                             <h3 className="font-semibold text-gray-900 text-sm mb-1">
                                 {prod.title.split(" ").slice(0, 2).join(" ")}
