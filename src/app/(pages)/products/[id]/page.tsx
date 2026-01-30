@@ -7,8 +7,8 @@ import React from "react";
 
 import { FaStar } from "react-icons/fa";
 
-export default async function ProductDetails({ params }) {
-  let { id } = await params;
+export default async function ProductDetails({ params } : {params : {id : string}}) {
+  let { id } =  await params;
   console.log(id);
 
   let data = await getProductDetails(id);

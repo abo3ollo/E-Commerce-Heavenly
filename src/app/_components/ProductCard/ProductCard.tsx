@@ -1,24 +1,29 @@
 import { Card } from "@/components/ui/card";
+import { Product } from "@/types/product.type";
 import { ChevronRight, Heart } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
-export default function ProductCard({ prod }) {
+export default function ProductCard({ prod }:{prod : Product}) {
     return (
         <>
-            
-            <Card className="relative w-72 h-125 overflow-hidden rounded-3xl border-none shadow-xl" key={prod.id}>
+            <Card
+                className="relative w-72 h-125 overflow-hidden rounded-3xl border-none shadow-xl"
+                key={prod.id}
+            >
                 <Link href={`/products/${prod.id}`}>
-                {/* Full Background Image */}
-                <div className="absolute inset-0">
-                    <img
-                        src={prod.imageCover}
-                        alt={"asasas"}
-                        className="w-full h-full object-cover"
-                    />
-                <div className="absolute inset-0 bg-linear-to-t from-black/10 via-black/10 to-black/10"></div>
+                    {/* Full Background Image */}
+                    <div className="absolute inset-0 w-full h-full">
+                        <Image
+                            src={prod.imageCover}
+                            alt="product name"
 
-                </div>
-
+                            width={500}
+                            height={500}
+                            className=" object-cover"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/10 via-black/10 to-black/10"></div>
+                    </div>
                 </Link>
                 {/* Season Badge */}
                 <div className="absolute top-6 right-6 bg-white rounded-full px-4 py-2 text-sm font-medium text-gray-800 shadow-lg flex items-center gap-2">
@@ -41,7 +46,6 @@ export default function ProductCard({ prod }) {
                     </button>
                 </div>
             </Card>
-            
         </>
     );
 }
