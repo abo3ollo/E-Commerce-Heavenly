@@ -84,7 +84,7 @@ export default async function ProductDetails({ params } : {params : {id : string
 
             {/* Action Buttons */}
             <div className="flex gap-3">
-              <button className="flex-1 bg-black text-white py-4 rounded-md font-medium hover:bg-gray-800 transition-colors">
+              <button className="cursor-pointer flex-1 bg-black text-white py-4 rounded-md font-medium hover:bg-gray-800 transition-colors">
                 ADD TO CART
               </button>
             </div>

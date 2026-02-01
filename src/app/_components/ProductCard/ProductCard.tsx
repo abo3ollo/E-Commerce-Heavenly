@@ -13,14 +13,16 @@ export default function ProductCard({ prod }:{prod : Product}) {
             >
                 <Link href={`/products/${prod.id}`}>
                     {/* Full Background Image */}
-                    <div className="absolute inset-0 w-full h-full">
+                    <div className="absolute inset-0 ">
+                        
                         <Image
                             src={prod.imageCover}
-                            alt="product name"
+                            alt={prod.slug}
+                            fill
+                            priority
+                            className=" object-cover w-full h-auto"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 
-                            width={500}
-                            height={500}
-                            className=" object-cover"
                         />
                         <div className="absolute inset-0 bg-linear-to-t from-black/10 via-black/10 to-black/10"></div>
                     </div>

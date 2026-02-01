@@ -2,8 +2,21 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react'
+
 import { BiHeart, BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi';
+
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import {  NavigationMenu , NavigationMenuItem, NavigationMenuLink } from '@/components/ui/navigation-menu';
+
 export default function Navbar() {
   let path = usePathname()
   return (
@@ -23,22 +36,53 @@ export default function Navbar() {
               </li>
             </ul>
 
-            <Link href="/" className="text-2xl   tracking-wider">HEAVENLY</Link>
+            <Link href="/" className="text-2xl tracking-wider me-12">HEAVENLY</Link>
 
-            <ul className="flex  gap-4">
-                <Link href="" className="p-2 hover:bg-gray-100 rounded-full">
-                  <BiSearch className="w-5 h-5" />
-                </Link>
-                <Link href="" className="p-2 hover:bg-gray-100 rounded-full">
-                  <BiUser className="w-5 h-5" />
-                </Link>
-                <Link href="" className="p-2 hover:bg-gray-100 rounded-full">
-                  <BiHeart className="w-5 h-5" />
-                </Link>
-                <Link href="" className="p-2 hover:bg-gray-100 rounded-full relative">
-                  <BiShoppingBag className="w-5 h-5" />
-                  <span className="absolute top-0 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span>
-                </Link>
+            <ul className="flex items-center space-x-2.5">
+              <Link href="/favourites" className="p-2 rounded-full relative ">
+                <BiHeart className="w-5 h-5" />
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span>
+              </Link>
+              <Link href="/cart" className="p-2 rounded-full relative">
+                <BiShoppingBag className="w-5 h-5" />
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span>
+              </Link>
+
+              <DropdownMenu >
+                <DropdownMenuTrigger asChild className='cursor-pointer '>
+                  <BiUser className="w-5 h-5 mx-2" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-32">
+                  <DropdownMenuGroup>
+                    <Link href="/login" >
+                      <DropdownMenuItem>Login</DropdownMenuItem>
+                    </Link>
+                    <Link href="/register">
+                      <DropdownMenuItem>Register</DropdownMenuItem>
+                    </Link>
+                    <Link href="/profile">
+                      <DropdownMenuItem>Profile</DropdownMenuItem>
+                    </Link>
+                    <Link href="/orders">
+                      <DropdownMenuItem>Your Orders</DropdownMenuItem>
+                    </Link>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem variant="destructive">Log out</DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              
+
+              
+              {/* <Link href="" className="p-2 hover:bg-gray-100 rounded-full">
+                <BiSearch className="w-5 h-5" />
+              </Link>
+              <Link href="" className="p-2 hover:bg-gray-100 rounded-full">
+              <BiUser className="w-5 h-5" />
+              </Link>
+               */}
             </ul>
           </div>
         </div>
