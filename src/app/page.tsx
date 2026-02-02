@@ -1,6 +1,7 @@
 
 import HeroSection from "./_components/HeroSection/HeroSection";
 import CategoriesSlider from "./_components/CategoriesSlider/CategoriesSlider";
+import AllProductHome from "./_components/AllProductHome/AllProductHome";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       {/* Main content container */}
       <HeroSection/>
       <CategoriesSlider/>
-      
+      <AllProductHome/>
 
 
     </div>

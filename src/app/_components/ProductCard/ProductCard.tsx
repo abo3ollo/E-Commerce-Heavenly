@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Product } from "@/types/product.type";
-import { ChevronRight, Heart } from "lucide-react";
+import { ChevronRight, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -37,15 +37,19 @@ export default function ProductCard({ prod }:{prod : Product}) {
 
                 {/* Product Info Button at Bottom */}
                 <div className="absolute bottom-6 left-6 right-6">
-                    <button className="w-full bg-white  backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between group transition-all shadow-lg">
+                    <div className="w-full bg-white  backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between group transition-all shadow-lg">
                         <div className="text-left">
                             <h3 className="font-semibold text-gray-900 text-sm mb-1">
                                 {prod.title.split(" ").slice(0, 2).join(" ")}
                             </h3>
                             <p className="text-gray-600 text-sm">{prod.price} EGP</p>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform shrink-0" />
-                    </button>
+                        {/* <Link href="/cart"> */}
+                        <button>
+                            <ShoppingCart   className="w-6 h-6  text-gray-500 cursor-pointer  transition-transform shrink-0" />
+                        </button>
+                        {/* </Link> */}
+                    </div>
                 </div>
             </Card>
         </>

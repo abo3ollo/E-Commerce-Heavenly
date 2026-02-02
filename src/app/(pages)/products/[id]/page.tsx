@@ -1,20 +1,20 @@
 
 
 import { getProductDetails } from "@/api/getProductDetails.api";
-import { Star } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import React from "react";
 
 
 import { FaStar } from "react-icons/fa";
 
-export default async function ProductDetails({ params } : {params : {id : string}}) {
-  let { id } =  await params;
+export default async function ProductDetails({ params }: { params: { id: string } }) {
+  let { id } = await params;
   console.log(id);
 
   let data = await getProductDetails(id);
   console.log(data);
 
- 
+
 
   return (
     <>
@@ -62,7 +62,7 @@ export default async function ProductDetails({ params } : {params : {id : string
               </h2>
               <div className="flex items-center gap-5">
                 {data.price > data.priceAfterDiscount ? (
-                  
+
                   <>
                     <span className="text-gray-400 line-through text-xl">
                       {data.price.toFixed(2)}EGP
@@ -72,7 +72,7 @@ export default async function ProductDetails({ params } : {params : {id : string
                     </span>
                   </>
                 ) : (
-                  
+
                   <span className="text-gray-900 font-bold text-3xl">
                     {data.price.toFixed(2)}EGP
                   </span>
@@ -83,9 +83,12 @@ export default async function ProductDetails({ params } : {params : {id : string
             <p className="text-gray-600 leading-relaxed">{data.description}</p>
 
             {/* Action Buttons */}
-            <div className="flex gap-3">
+            <div className="flex gap-3 items-center">
               <button className="cursor-pointer flex-1 bg-black text-white py-4 rounded-md font-medium hover:bg-gray-800 transition-colors">
                 ADD TO CART
+              </button>
+              <button className="border-2 border-gray-300 hover:border-red-400 rounded-md py-3 px-6 cursor-pointer group transition-all duration-200 hover:bg-red-50">
+                <Heart className="w-6 h-6 text-gray-600 group-hover:text-red-500 group-active:fill-red-500 transition-colors duration-200" />
               </button>
             </div>
 
@@ -109,13 +112,13 @@ export default async function ProductDetails({ params } : {params : {id : string
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Ratings</span>
                   <div className="flex items-center">
-                    {[0,1,2,3,4].map((star ,index )=>{
+                    {[0, 1, 2, 3, 4].map((star, index) => {
                       const filledStar = star < Math.round(data.ratingsAverage)
                       return <React.Fragment key={index}>
-                      <Star  className={`size-5 ${filledStar ? "text-yellow-400 fill-yellow-400" : "text-gray-400"}`} />
+                        <Star className={`size-5 ${filledStar ? "text-yellow-400 fill-yellow-400" : "text-gray-400"}`} />
                       </React.Fragment>
                     })}
-                    <p className="font-medium ms-1">({data.ratingsAverage.toFixed(1)})</p> 
+                    <p className="font-medium ms-1">({data.ratingsAverage.toFixed(1)})</p>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
