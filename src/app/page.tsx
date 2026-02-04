@@ -11,7 +11,7 @@ export default function Home() {
 
       {/* Main content container */}
       <HeroSection/>
-      <CategoriesSlider/>
+      {/* <CategoriesSlider/> */}
       <AllProductHome/>
 
 

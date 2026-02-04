@@ -8,15 +8,16 @@ import axios from "axios"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { loginSchema, loginSchemaType } from "@/schema/login.schema"
+import { signIn } from "next-auth/react"
 
 
 export default function Register() {
 
-    let router = useRouter()
+    // let router = useRouter()
 
     let form = useForm<loginSchemaType>({
         defaultValues: {
-            
+
             email: "",
             password: "",
         },
@@ -25,24 +26,29 @@ export default function Register() {
     let { handleSubmit } = form
 
 
-    function handleLogin(values: loginSchemaType) {
-        console.log(values);
+    async function handleLogin(values: loginSchemaType) {
+        // console.log(values);
 
-        // call api 
-        axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin", values).then((res) => {
-            console.log(res);
-            if (res.data.message == "success") {
-                toast.success("you loggedIn successfully", {
-                    position: "top-center"
-                }),
-                    router.push("/")
-            }
-        }).catch((err) => { 
-            // console.log(err.response.data.message);
-            toast.error(err.response.data.message, {
+
+
+        let res = await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            redirect: false,
+            callbackUrl: "/",
+        })
+        console.log(res);
+        if (res?.ok) {
+            toast.success("you loggedIn successfully", {
                 position: "top-center"
             })
-        })
+            window.location.href = "/"
+        } else {
+            toast.error(res?.error, {
+                position: "top-center"
+            })
+        }
+
     }
 
 
@@ -52,7 +58,7 @@ export default function Register() {
         <div className='w-[50%] mx-auto my-20'>
             <h2 className='text-center font-bold text-2xl'>Signin Now!</h2>
             <form className="space-y-8" onSubmit={handleSubmit(handleLogin)}>
-                
+
                 <FieldGroup>
                     <Controller
                         name="email"
@@ -93,7 +99,7 @@ export default function Register() {
                         )}
                     />
                 </FieldGroup>
-                
+
 
                 <Button className="bg-black text-white w-full my-2 cursor-pointer">
                     Submit
