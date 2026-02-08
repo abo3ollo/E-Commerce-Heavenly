@@ -4,7 +4,10 @@ import { ChevronRight, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ProductCard({ prod }:{prod : Product}) {
+import CartBtn from "../AddBtn/CartBtn";
+
+
+export default async function ProductCard({ prod }:{prod : Product}) {
     return (
         <>
             <Card
@@ -45,9 +48,7 @@ export default function ProductCard({ prod }:{prod : Product}) {
                             <p className="text-gray-600 text-sm">{prod.price} EGP</p>
                         </div>
                         {/* <Link href="/cart"> */}
-                        <button>
-                            <ShoppingCart   className="w-6 h-6  text-gray-500 cursor-pointer  transition-transform shrink-0" />
-                        </button>
+                        <CartBtn id={prod.id}/>
                         {/* </Link> */}
                     </div>
                 </div>

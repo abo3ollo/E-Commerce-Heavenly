@@ -1,6 +1,7 @@
 
 
 import { getProductDetails } from "@/api/getProductDetails.api";
+import CartBtnDetails from "@/app/_components/AddBtn/CartBtnDetails";
 import { Heart, Star } from "lucide-react";
 import React from "react";
 
@@ -84,9 +85,11 @@ export default async function ProductDetails({ params }: { params: { id: string 
 
             {/* Action Buttons */}
             <div className="flex gap-3 items-center">
-              <button className="cursor-pointer flex-1 bg-black text-white py-4 rounded-md font-medium hover:bg-gray-800 transition-colors">
-                ADD TO CART
-              </button>
+              <div className="w-full">
+
+              <CartBtnDetails id={data.id}/>
+              </div>
+
               <button className="border-2 border-gray-300 hover:border-red-400 rounded-md py-3 px-6 cursor-pointer group transition-all duration-200 hover:bg-red-50">
                 <Heart className="w-6 h-6 text-gray-600 group-hover:text-red-500 group-active:fill-red-500 transition-colors duration-200" />
               </button>
@@ -115,7 +118,7 @@ export default async function ProductDetails({ params }: { params: { id: string 
                     {[0, 1, 2, 3, 4].map((star, index) => {
                       const filledStar = star < Math.round(data.ratingsAverage)
                       return <React.Fragment key={index}>
-                        <Star className={`size-5 ${filledStar ? "text-yellow-400 fill-yellow-400" : "text-gray-400"}`} />
+                        <Star className={`size-5 ${filledStar ? "text-yellow-500 fill-yellow-500" : "text-gray-400"}`} />
                       </React.Fragment>
                     })}
                     <p className="font-medium ms-1">({data.ratingsAverage.toFixed(1)})</p>

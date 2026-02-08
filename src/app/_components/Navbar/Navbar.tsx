@@ -22,9 +22,9 @@ export default function Navbar() {
 
   const { data: session, status } = useSession()
 
-  function logOut(){
+  function logOut() {
     signOut({
-      callbackUrl : "/login"
+      callbackUrl: "/login"
     })
   }
 
@@ -33,7 +33,11 @@ export default function Navbar() {
   let path = usePathname()
   return (
     <>
-      <nav className="bg-white border-b border-gray-200 ">
+      {/* Header Banner */}
+      <div className="bg-red-500 text-white text-center py-2 px-4 text-sm">
+        Free Shipping on all orders until April . Don't miss !
+      </div>
+      <nav className="bg-white border-b border-gray-200 text-center ">
         <div className="container w-[80%] mx-auto py-4 ">
           <div className="flex items-center justify-between ">
             <ul className="flex gap-5">
@@ -48,17 +52,17 @@ export default function Navbar() {
               </li>
             </ul>
 
-            <Link href="/" className="text-2xl tracking-wider me-12">HEAVENLY</Link>
+            <Link href="/" className="text-2xl tracking-wider ">HEAVENLY</Link>
 
-            <ul className="flex items-center space-x-2.5">
+            <ul className="flex items-center space-x-2">
               {session ? <>
                 <Link href="/favourites" className="p-2 rounded-full relative ">
                   <BiHeart className="w-5 h-5" />
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span>
+                  {/* <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span> */}
                 </Link>
                 <Link href="/cart" className="p-2 rounded-full relative">
                   <BiShoppingBag className="w-5 h-5" />
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span>
+                  {/* <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span> */}
                 </Link>
 
                 <DropdownMenu >
