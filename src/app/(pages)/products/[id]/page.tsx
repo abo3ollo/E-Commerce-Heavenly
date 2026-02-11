@@ -6,9 +6,7 @@ import { Heart, Star } from "lucide-react";
 import React from "react";
 
 
-import { FaStar } from "react-icons/fa";
-
-export default async function ProductDetails({ params }: { params: { id: string } }) {
+export default async function ProductDetails({  params }: { params: Promise<{ id: string }>}) {
   let { id } = await params;
   console.log(id);
 

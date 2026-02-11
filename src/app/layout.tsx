@@ -6,6 +6,7 @@ import Footer from "./_components/Footer/Footer";
 import SnowfallBackground from "./_components/SnowFall/SnowFall";
 import { Toaster } from "@/components/ui/sonner"
 import MySessionProvider from "@/MySessionProvider/MySessionProvider";
+import{CartContextProvider} from "@/context/CardContext"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,11 +34,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <MySessionProvider>
+          <CartContextProvider>
+
           {/* <SnowfallBackground/> */}
           <Navbar />
           {children}
           <Footer />
           <Toaster />
+          
+          </CartContextProvider>
         </MySessionProvider>
       </body>
     </html>

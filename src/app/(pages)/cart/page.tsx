@@ -1,19 +1,19 @@
 "use client"
-import { getServerSession } from "next-auth";
-import React, { useEffect, useState } from "react";
-import { authOptions } from "../../../../auth";
-import { redirect } from "next/navigation";
-import { Loader, Trash2, Trash2Icon, X } from "lucide-react";
+
+import React, { useContext, useEffect, useState } from "react";
+import {  Trash2Icon, X } from "lucide-react";
 import { getUserCart } from "@/CartActions/getUserCart.action";
 import { removeCartItem } from "@/CartActions/removeCartItem.action";
 import { toast } from "sonner";
 import CartLoading from "@/app/_components/Loading/CartLoading";
 import { updateCart } from "@/CartActions/updateCard.action";
-import { id } from "zod/v4/locales";
 import { clearCart } from "@/CartActions/clearCart.action";
+import { ProductCartType } from "@/types/cart.type";
+import { CartContext } from "@/context/CardContext";
 
 export default function Cart() {
 
+  let { noOfItems, setNoOfItems } = useContext(CartContext)!
 
   let [products, setProducts] = useState([])
   let [isLoading, setIsLoading] = useState(true)
@@ -49,6 +49,14 @@ export default function Cart() {
       setProducts(res.data.products)
       setIsRemoving(false)
 
+      let sum = 0 
+      res.data.products.forEach((product : ProductCartType)=>{
+        sum+= product.count
+        setNoOfItems(sum)
+      })
+      console.log(sum);
+      
+
     } else {
       toast.error("item  can't remove now", {
         position: "top-center"
@@ -58,7 +66,7 @@ export default function Cart() {
     }
   }
 
-  async function updateCartProduct(id: string, count: string) {
+  async function updateCartProduct(id: string, count: string, sign: string) {
     setCurrentId(id)
     setUpdateLoading(true)
     let res = await updateCart(id, count)
@@ -67,8 +75,16 @@ export default function Cart() {
       toast.success("product Qtn updated", {
         position: "top-center"
       })
+
       setProducts(res.data.products)
       setUpdateLoading(false)
+
+      if (sign == "+") {
+        setNoOfItems(noOfItems + 1)
+
+      } else if (sign == "-") {
+        setNoOfItems(noOfItems - 1)
+      }
 
     } else {
       toast.error("product Qtn can't be updated", {
@@ -82,13 +98,13 @@ export default function Cart() {
   async function clearAllCart() {
     let res = await clearCart()
     console.log(res);
-    if (res.status == "success") {
+    if (res.message == "success") {
       toast.success("Cart cleared", {
         position: "top-center"
       })
       setProducts([])
     }
-    
+
   }
 
   useEffect(() => {
@@ -96,7 +112,7 @@ export default function Cart() {
   }, [])
 
   // Calculate totals
-  const subtotal = products.reduce((sum, prod) => sum + (prod.count * prod.price), 0)
+  const subtotal = products.reduce((sum, prod: ProductCartType) => sum + (prod.count * prod.price), 0)
   const total = subtotal
 
 
@@ -127,7 +143,7 @@ export default function Cart() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {products.map((prod) => {
+                    {products.map((prod: ProductCartType) => {
                       return (
                         <React.Fragment key={prod.product.id}>
                           <div className="bg-white rounded-lg p-6 flex gap-4">
@@ -155,13 +171,13 @@ export default function Cart() {
 
                               <div className="flex items-center gap-6">
                                 <div className="flex items-center gap-3 border rounded">
-                                  <button onClick={() => updateCartProduct(prod.product.id, prod.count - 1)} className="px-3 py-1 hover:bg-gray-100 cursor-pointer">
+                                  <button onClick={() => updateCartProduct(prod.product.id, `${prod.count - 1}`, "-")} className="px-3 py-1 hover:bg-gray-100 cursor-pointer">
                                     −
                                   </button>
 
-                                  {currentId == prod.product.id ? updateLoading ? <Loader /> : <span className="w-8 text-center">{prod.count}</span> : <span className="w-8 text-center">{prod.count}</span>}
+                                  {currentId == prod.product.id ? updateLoading ? <span className="loader w-full"></span> : <span className="w-8 text-center">{prod.count}</span> : <span className="w-8 text-center">{prod.count}</span>}
 
-                                  <button onClick={() => updateCartProduct(prod.product.id, prod.count + 1)} className="px-3 py-1 hover:bg-gray-100 cursor-pointer">
+                                  <button onClick={() => updateCartProduct(prod.product.id, `${prod.count + 1}`, "+")} className="px-3 py-1 hover:bg-gray-100 cursor-pointer">
                                     +
                                   </button>
                                 </div>
@@ -190,7 +206,7 @@ export default function Cart() {
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Subtotal</span>
-                      <span className="font-medium">{subtotal.toFixed(2)} EGP</span>
+                      <span className="font-medium">{subtotal.toFixed(1)} EGP</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Shipping</span>
@@ -198,7 +214,7 @@ export default function Cart() {
                     </div>
                     <div className="border-t pt-3 flex justify-between">
                       <span className="font-medium">Total</span>
-                      <span className="font-medium text-lg">{total.toFixed(2)} EGP</span>
+                      <span className="font-medium text-lg">{total.toFixed(1)} EGP</span>
                     </div>
                   </div>
 

@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { BiHeart, BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi';
-
+import { BiHeart, BiShoppingBag, BiUser } from 'react-icons/bi';
 
 import {
   DropdownMenu,
@@ -15,10 +14,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink } from '@/components/ui/navigation-menu';
 import { signOut, useSession } from 'next-auth/react';
+import { useContext } from 'react';
+import { CartContext } from '@/context/CardContext';
 
 export default function Navbar() {
+
+
+  let { noOfItems, setNoOfItems } = useContext(CartContext)!
+
 
   const { data: session, status } = useSession()
 
@@ -34,10 +38,10 @@ export default function Navbar() {
   return (
     <>
       {/* Header Banner */}
-      <div className="bg-red-500 text-white text-center py-2 px-4 text-sm">
-        Free Shipping on all orders until April . Don't miss !
-      </div>
-      <nav className="bg-white border-b border-gray-200 text-center ">
+      <nav className="bg-white border-b border-gray-200 text-center  fixed start-0 top-0 end-0 z-50">
+        <div className="bg-red-500 text-white text-center py-2 px-4 text-sm">
+          Free Shipping on all orders until April . Don't miss !
+        </div>
         <div className="container w-[80%] mx-auto py-4 ">
           <div className="flex items-center justify-between ">
             <ul className="flex gap-5">
@@ -58,11 +62,15 @@ export default function Navbar() {
               {session ? <>
                 <Link href="/favourites" className="p-2 rounded-full relative ">
                   <BiHeart className="w-5 h-5" />
-                  {/* <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span> */}
+                  <span className="absolute -top-2 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                    2
+                  </span>
                 </Link>
                 <Link href="/cart" className="p-2 rounded-full relative">
                   <BiShoppingBag className="w-5 h-5" />
-                  {/* <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span> */}
+                  {noOfItems> 0 && <span className="absolute -top-2 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                    {noOfItems}
+                  </span>}
                 </Link>
 
                 <DropdownMenu >

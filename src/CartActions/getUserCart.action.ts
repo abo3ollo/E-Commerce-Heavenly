@@ -2,7 +2,8 @@
 import { getMyToken } from "@/utilities/getMyToken";
 
 export async function getUserCart() {
-  let token = await getMyToken();
+  try {
+    let token = await getMyToken();
   if (!token) throw new Error("you should logged in first");
 
   let res = await fetch(`https://ecommerce.routemisr.com/api/v1/cart`, {
@@ -15,4 +16,9 @@ export async function getUserCart() {
   
   let payload = await res.json();
   return payload;
+  
+  } catch (error) {
+    console.log(error);
+    
+  }
 }
