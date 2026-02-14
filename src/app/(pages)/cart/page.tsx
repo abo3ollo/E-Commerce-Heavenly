@@ -10,24 +10,31 @@ import { updateCart } from "@/CartActions/updateCard.action";
 import { clearCart } from "@/CartActions/clearCart.action";
 import { ProductCartType } from "@/types/cart.type";
 import { CartContext } from "@/context/CardContext";
+import Link from "next/link";
 
 export default function Cart() {
 
-  let { noOfItems, setNoOfItems } = useContext(CartContext)!
+  const { noOfItems, setNoOfItems } = useContext(CartContext)!
 
-  let [products, setProducts] = useState([])
-  let [isLoading, setIsLoading] = useState(true)
-  let [isRemoving, setIsRemoving] = useState(false)
-  let [updateLoading, setUpdateLoading] = useState(false)
-  let [currentId, setCurrentId] = useState('')
+  
+
+  const [products, setProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isRemoving, setIsRemoving] = useState(false)
+  const [updateLoading, setUpdateLoading] = useState(false)
+  const [currentId, setCurrentId] = useState('')
+  const [cartId, setCartId] = useState('')
+
 
 
 
   async function getUserCartProducts() {
     //  setIsLoading(true)
 
-    let res = await getUserCart()
-    console.log(res.data.products);
+    const res = await getUserCart()
+    console.log(res);
+    setCartId(res.cartId)
+
     if (res.status == "success") {
       setProducts(res.data.products)
       setIsLoading(false)
@@ -40,7 +47,7 @@ export default function Cart() {
 
   async function removeProductFromCart(id: string) {
     setIsRemoving(true)
-    let res = await removeCartItem(id)
+    const res = await removeCartItem(id)
     if (res.status == "success") {
       toast.success("item removed successfully", {
         position: "top-center"
@@ -69,7 +76,7 @@ export default function Cart() {
   async function updateCartProduct(id: string, count: string, sign: string) {
     setCurrentId(id)
     setUpdateLoading(true)
-    let res = await updateCart(id, count)
+    const res = await updateCart(id, count)
     console.log(res);
     if (res.status == "success") {
       toast.success("product Qtn updated", {
@@ -96,7 +103,7 @@ export default function Cart() {
   }
 
   async function clearAllCart() {
-    let res = await clearCart()
+    const res = await clearCart()
     console.log(res);
     if (res.message == "success") {
       toast.success("Cart cleared", {
@@ -124,8 +131,9 @@ export default function Cart() {
         <div className="min-h-screen bg-gray-50">
           {/* Breadcrumb */}
           <div className="max-w-6xl mx-auto p-8">
-            <h1 className="text-3xl md:text-4xl text-left mb-2 font-medium">
-              Shopping Cart
+            <h1 className="text-3xl md:text-4xl text-left mb-2 font-medium flex items-center gap-x-1.5">
+              <span className="text-3xl">🛍️</span>
+               Shopping Cart
             </h1>
             <p className="text-sm text-gray-600">
               {products.length} {products.length === 1 ? 'item' : 'items'} in your cart
@@ -182,10 +190,10 @@ export default function Cart() {
                                   </button>
                                 </div>
 
-                                <div className="text-right min-w-20">
-                                  <div className="text-sm text-gray-600">
-                                    {prod.count * prod.price} EGP
-                                  </div>
+                                <div className="text-right min-w-20  ">
+                                  <p className="text-gray-500 text-xs">{prod.count} x {prod.price} </p>
+                                  <p className="text-lg text-gray-600">{prod.count * prod.price} EGP</p>
+                                  
                                 </div>
                               </div>
                             </div>
@@ -206,23 +214,22 @@ export default function Cart() {
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Subtotal</span>
-                      <span className="font-medium">{subtotal.toFixed(1)} EGP</span>
+                      <span className="font-medium">{subtotal.toLocaleString('en-US')} EGP</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Shipping</span>
+                      <span className="text-gray-600">🚚 Shipping</span>
                       <span className="font-medium text-emerald-500">Free</span>
                     </div>
                     <div className="border-t pt-3 flex justify-between">
                       <span className="font-medium">Total</span>
-                      <span className="font-medium text-lg">{total.toFixed(1)} EGP</span>
+                      <span className="font-medium text-lg">{total.toLocaleString('en-US')} EGP</span>
                     </div>
                   </div>
 
                   <button
                     className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled={products.length === 0}
-                  >
-                    Check Out
+                    disabled={products.length === 0}>
+                      <Link href={`/checkout/${cartId}`} >Check Out</Link>
                   </button>
                 </div>
 

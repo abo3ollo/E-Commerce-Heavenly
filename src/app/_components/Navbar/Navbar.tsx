@@ -17,11 +17,13 @@ import {
 import { signOut, useSession } from 'next-auth/react';
 import { useContext } from 'react';
 import { CartContext } from '@/context/CardContext';
+import { WishlistContext } from '@/context/WishlistContext';
 
 export default function Navbar() {
 
 
   let { noOfItems, setNoOfItems } = useContext(CartContext)!
+  let {noOfWishlistItems, setNoOfWishlistItems} = useContext(WishlistContext)!
 
 
   const { data: session, status } = useSession()
@@ -39,37 +41,40 @@ export default function Navbar() {
     <>
       {/* Header Banner */}
       <nav className="bg-white border-b border-gray-200 text-center  fixed start-0 top-0 end-0 z-50">
-        <div className="bg-red-500 text-white text-center py-2 px-4 text-sm">
+        <div className="bg-black text-white text-center py-2 px-4 text-sm">
           Free Shipping on all orders until April . Don't miss !
         </div>
         <div className="container w-[80%] mx-auto py-4 ">
           <div className="flex items-center justify-between ">
-            <ul className="flex gap-5">
-              <li>
-                <Link href="/products" className={path == "/products" ? "active" : "text-sm text-gray-600 hover:text-black"}>PRODUCTS</Link >
-              </li>
-              <li>
-                <Link href="/categories" className={path == "/categories" ? "active" : "text-sm text-gray-600 hover:text-black"}>CATEGORIES</Link >
-              </li>
-              <li>
-                <Link href="/brands" className={path == "/brands" ? "active" : "text-sm text-gray-600 hover:text-black"}>BRANDS</Link >
-              </li>
-            </ul>
 
             <Link href="/" className="text-2xl tracking-wider ">HEAVENLY</Link>
 
+            <ul className="flex gap-5">
+              <li>
+                <Link href="/products" className={path.includes("/products") ? "active" : "text-sm text-gray-600 hover:text-black"}>PRODUCTS</Link >
+              </li>
+              <li>
+                <Link href="/categories" className={path.includes("/categories") ? "active" : "text-sm text-gray-600 hover:text-black"}>CATEGORIES</Link >
+              </li>
+              <li>
+                <Link href="/brands" className={path.includes("/brands") ? "active" : "text-sm text-gray-600 hover:text-black"}>BRANDS</Link >
+              </li>
+            </ul>
+
+            
+
             <ul className="flex items-center space-x-2">
               {session ? <>
-                <Link href="/favourites" className="p-2 rounded-full relative ">
+                <Link href="/wishlist" className="p-2 rounded-full relative ">
                   <BiHeart className="w-5 h-5" />
-                  <span className="absolute -top-2 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                    2
-                  </span>
+                  {noOfWishlistItems > 0 && <span className="absolute -top-2 -right-1 bg-black text-white text-xs w-5.5 h-5.5 flex items-center justify-center rounded-full">
+                    {noOfWishlistItems}
+                  </span>}
                 </Link>
                 <Link href="/cart" className="p-2 rounded-full relative">
                   <BiShoppingBag className="w-5 h-5" />
-                  {noOfItems> 0 && <span className="absolute -top-2 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                    {noOfItems}
+                  {noOfItems> 0 && <span className="absolute -top-2 -right-1 bg-black text-white text-xs w-5.5 h-5.5 flex items-center justify-center rounded-full">
+                     {noOfItems}
                   </span>}
                 </Link>
 
@@ -82,7 +87,7 @@ export default function Navbar() {
                       <Link href="/profile">
                         <DropdownMenuItem>Profile</DropdownMenuItem>
                       </Link>
-                      <Link href="/orders">
+                      <Link href="/allorders">
                         <DropdownMenuItem>Your Orders</DropdownMenuItem>
                       </Link>
                     </DropdownMenuGroup>

@@ -44,7 +44,7 @@ export function CartContextProvider({
   async function getLoggedUserCart() {
     try {
       const res: GetUserCartResponse = await getUserCart();
-      console.log(res);
+      console.log( "cart" , res.data.products);
 
       if (res.status === "success") {
         const sum = res.data.products.reduce(

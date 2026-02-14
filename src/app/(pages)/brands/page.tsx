@@ -9,7 +9,7 @@ import { BrandsTypes } from "@/types/brands.type";
 
 export default async function Brands() {
 
-    let data = await getAllBrands()
+    const data = await getAllBrands()
     console.log(data);
      //call allproduct api 
   

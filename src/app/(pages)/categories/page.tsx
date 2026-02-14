@@ -9,7 +9,7 @@ import CategoryCard from '@/app/_components/CategoryCard/CategoryCard';
 
 export default async function Categories() {
 
-    let data =  await getCategories()
+    const data =  await getCategories()
     console.log(data);
     
    

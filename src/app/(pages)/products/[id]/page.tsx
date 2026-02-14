@@ -2,6 +2,7 @@
 
 import { getProductDetails } from "@/api/getProductDetails.api";
 import CartBtnDetails from "@/app/_components/AddBtn/CartBtnDetails";
+import WishlistBtnDetails from "@/app/_components/AddBtn/wishlistBtnDetails";
 import { Heart, Star } from "lucide-react";
 import React from "react";
 
@@ -64,16 +65,16 @@ export default async function ProductDetails({  params }: { params: Promise<{ id
 
                   <>
                     <span className="text-gray-400 line-through text-xl">
-                      {data.price.toFixed(2)}EGP
+                      {data.price.toFixed(1).toLocaleString('en-US')}EGP
                     </span>
                     <span className="text-red-600 font-bold text-3xl">
-                      {data.priceAfterDiscount.toFixed(2)}EGP
+                      {data.priceAfterDiscount.toFixed(1).toLocaleString('en-US')}EGP
                     </span>
                   </>
                 ) : (
 
                   <span className="text-gray-900 font-bold text-3xl">
-                    {data.price.toFixed(2)}EGP
+                    {data.price.toFixed(1).toLocaleString('en-US')}EGP
                   </span>
                 )}
               </div>
@@ -88,9 +89,7 @@ export default async function ProductDetails({  params }: { params: Promise<{ id
               <CartBtnDetails id={data.id}/>
               </div>
 
-              <button className="border-2 border-gray-300 hover:border-red-400 rounded-md py-3 px-6 cursor-pointer group transition-all duration-200 hover:bg-red-50">
-                <Heart className="w-6 h-6 text-gray-600 group-hover:text-red-500 group-active:fill-red-500 transition-colors duration-200" />
-              </button>
+              <WishlistBtnDetails id={data.id}/>
             </div>
 
             {/* Characteristics */}

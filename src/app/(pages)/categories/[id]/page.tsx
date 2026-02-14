@@ -1,56 +1,49 @@
 
 import { getCategoryDetails } from "@/api/getCategoryDetails.api";
 import { getSubCategoriesByCategory } from "@/api/getSubCategoriesByCategory.api";
-import SubCategoryCard from "@/app/_components/SubCategoryCard/SubCategoryCard";
-import { subCategory } from "@/types/subcategories.type";
+import ProductCard from "@/app/_components/ProductCard/ProductCard";
+import { getRelatedCategory } from "@/Related/RelatedCategory";
+import { Product } from "@/types/product.type";
+
 
 
 export default async function CategoryDetails({ params }: { params: Promise<{ id: string }> }) {
-    let { id } = await params;
-    console.log(id);
+  const { id } = await params;
+  console.log(id);
 
-    // let data = await getCategoryDetails(id);
-    // console.log(data);
+  const data = await getCategoryDetails(id);
+  console.log(data);
 
 
-    // Fetch both category details AND its subcategories
-  const [category, subcategories] = await Promise.all([
-    getCategoryDetails(id),
-    getSubCategoriesByCategory(id)
-  ]);
-    return( <div className="container mx-auto px-4 py-8">
-      {/* Category Header */}
-      <div className="mb-12 ">
-        <h1 className="text-4xl font-bold ">{category.name}</h1>
-        <img 
-          src={category.image} 
-          alt={category.name}
-          className="w-full h-screen object-cover  rounded-lg mb-4"
-        />
-      </div>
-      <div className="mb-4 border-b-2 border-gray-200"></div>
 
-      {/* Subcategories Section */}
-      {subcategories && subcategories.length > 0 && (
-        <div>
-          <h2 className="text-3xl font-bold mb-6">Subcategories</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {subcategories.map((subcategory: subCategory) => (
-              <SubCategoryCard 
-                subcategory={subcategory} 
-                key={subcategory._id}
-              />
-            ))}
+  if (!data) return <h1>no products details</h1>
+
+
+  const res = await getRelatedCategory(data._id);
+  console.log(res);
+
+
+
+
+  return (
+    res.length === 0 ? (
+      <div className="max-w-7xl mx-auto px-4 pb-12">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex-1">
+            <div className="bg-white rounded-lg p-12 text-center">
+              <p className="text-gray-500 text-lg">Category not found</p>
+            </div>
           </div>
         </div>
-      )}
-
-      {/* No subcategories message */}
-      {(!subcategories || subcategories.length === 0) && (
-        <div className="text-center py-12">
-          <p className="text-gray-500">No subcategories found for this category</p>
+      </div>
+    ) : (
+      <div className="min-h-screen p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 container w-[80%] mx-auto">
+          {res.map((prod: Product) => (
+            <ProductCard prod={prod} key={prod.id} />
+          ))}
         </div>
-      )}
-    </div>
+      </div>
+    )
   );
 }
