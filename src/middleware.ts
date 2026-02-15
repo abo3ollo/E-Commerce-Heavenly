@@ -15,7 +15,12 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
   } else {
-    if (request.nextUrl.pathname == "/cart" || request.nextUrl.pathname.includes("/products/") ) {
+    if (
+      request.nextUrl.pathname == "/cart" ||
+      request.nextUrl.pathname.includes("/products/") ||
+      request.nextUrl.pathname == "/changepassword" ||
+      request.nextUrl.pathname == "/wishlist"
+    ) {
       return NextResponse.redirect(new URL("/login", request.url));
     } else {
       return NextResponse.next();
@@ -24,5 +29,12 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/cart", "/products/:id+" , "/login" , "/register"],
+  matcher: [
+    "/cart",
+    "/products/:id+",
+    "/login",
+    "/register",
+    "/changepassword",
+    "/wishlist",
+  ],
 };

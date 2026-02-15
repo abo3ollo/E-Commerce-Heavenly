@@ -84,11 +84,12 @@ export default function Navbar() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-32">
                     <DropdownMenuGroup>
-                      <Link href="/profile">
-                        <DropdownMenuItem>Profile</DropdownMenuItem>
-                      </Link>
+                      
                       <Link href="/allorders">
                         <DropdownMenuItem>Your Orders</DropdownMenuItem>
+                      </Link>
+                      <Link href="/changepassword">
+                        <DropdownMenuItem>Change Password</DropdownMenuItem>
                       </Link>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
@@ -109,6 +110,7 @@ export default function Navbar() {
                       <Link href="/register">
                         <DropdownMenuItem>Register</DropdownMenuItem>
                       </Link>
+                      
                     </DropdownMenuGroup>
                   </DropdownMenuContent>
                 </DropdownMenu></>}
