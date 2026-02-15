@@ -3,16 +3,26 @@
 import { getProductDetails } from "@/api/getProductDetails.api";
 import CartBtnDetails from "@/app/_components/AddBtn/CartBtnDetails";
 import WishlistBtnDetails from "@/app/_components/AddBtn/wishlistBtnDetails";
+import ProductCard from "@/app/_components/ProductCard/ProductCard";
+import { getRelatedCategory } from "@/Related/RelatedCategory";
+import { getRelatedProducts } from "@/Related/RelatedProducts";
+import { Product } from "@/types/product.type";
 import { Heart, Star } from "lucide-react";
 import React from "react";
 
 
-export default async function ProductDetails({  params }: { params: Promise<{ id: string }>}) {
+export default async function ProductDetails({ params }: { params: Promise<{ id: string }> }) {
   let { id } = await params;
   console.log(id);
 
   let data = await getProductDetails(id);
   console.log(data);
+
+  if (!data) return <h1>no products details here</h1>
+
+
+  const res = await getRelatedProducts(data.category._id);
+  console.log(res);
 
 
 
@@ -86,10 +96,10 @@ export default async function ProductDetails({  params }: { params: Promise<{ id
             <div className="flex gap-3 items-center">
               <div className="w-full">
 
-              <CartBtnDetails id={data.id}/>
+                <CartBtnDetails id={data.id} />
               </div>
 
-              <WishlistBtnDetails id={data.id}/>
+              <WishlistBtnDetails id={data.id} />
             </div>
 
             {/* Characteristics */}
@@ -130,6 +140,16 @@ export default async function ProductDetails({  params }: { params: Promise<{ id
           </div>
         </div>
       </div>
+
+      <div className="min-h-screen p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 container w-[80%] mx-auto">
+          <h1 className="col-span-full text-3xl font-bold ">Related Products</h1>
+          {res.map((prod: Product) => (
+            <ProductCard prod={prod} key={prod.id} />
+          ))}
+        </div>
+      </div>
+
     </>
   );
 }
