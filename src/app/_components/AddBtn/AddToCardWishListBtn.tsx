@@ -8,11 +8,11 @@ import { toast } from 'sonner';
 
 export default function AddToCardWishListBtn({ id, onAdded }: { id: string; onAdded?: () => Promise<void> | void }) {
 
-    let { noOfItems, setNoOfItems } = useContext(CartContext)!
-    let { noOfWishlistItems, setNoOfWishlistItems } = useContext(WishlistContext)!
+    const { noOfItems, setNoOfItems } = useContext(CartContext)!
+    const { noOfWishlistItems, setNoOfWishlistItems } = useContext(WishlistContext)!
 
     async function addProductToCart(id: string) {
-        let res = await addToCart(id)
+        const res = await addToCart(id)
         console.log(res.data.products);
 
         if (res.status == "success") {

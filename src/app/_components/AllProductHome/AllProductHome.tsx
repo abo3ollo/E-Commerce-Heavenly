@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export default async function AllProductHome() {
 
-    let data = await getAllProducts()
+    const data = await getAllProducts()
     return <>
         <div className="min-h-screen p-8 text-center">
             <h2 className='text-6xl italic mb-10  font-medium'>OUR PRODUCTS</h2>

@@ -3,10 +3,10 @@ import { getMyToken } from "@/utilities/getMyToken";
 
 export async function addToWishlist(id : string) {
   try {
-    let token = await getMyToken();
+    const token = await getMyToken();
   if (!token) throw new Error("you should logged in first");
 
-  let res = await fetch(`https://ecommerce.routemisr.com/api/v1/wishlist`, {
+  const res = await fetch(`https://ecommerce.routemisr.com/api/v1/wishlist`, {
     method: "POST",
     headers: {
       token,
@@ -17,7 +17,7 @@ export async function addToWishlist(id : string) {
       }),
   });
   
-  let payload = await res.json();
+  const payload = await res.json();
   return payload;
   
   } catch (error) {

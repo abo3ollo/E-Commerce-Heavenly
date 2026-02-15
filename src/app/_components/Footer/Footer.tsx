@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
           {/* Links Sections */}
           <div className="lg:col-span-7">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 ">
-              {footerSections.map((section, index) => (
+              {footerSections.map((section) => (
                 <div
                   key={section.title}
                   className="space-y-4"

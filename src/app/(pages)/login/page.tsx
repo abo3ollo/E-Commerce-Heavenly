@@ -4,9 +4,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import axios from "axios"
 import { toast } from "sonner"
-import { useRouter } from "next/navigation"
 import { loginSchema, loginSchemaType } from "@/schema/login.schema"
 import { signIn } from "next-auth/react"
 
@@ -15,7 +13,7 @@ export default function Register() {
 
     // let router = useRouter()
 
-    let form = useForm<loginSchemaType>({
+    const form = useForm<loginSchemaType>({
         defaultValues: {
 
             email: "",
@@ -23,7 +21,7 @@ export default function Register() {
         },
         resolver: zodResolver(loginSchema)
     })
-    let { handleSubmit } = form
+    const { handleSubmit } = form
 
 
     async function handleLogin(values: loginSchemaType) {
@@ -31,7 +29,7 @@ export default function Register() {
 
 
 
-        let res = await signIn("credentials", {
+        const res = await signIn("credentials", {
             email: values.email,
             password: values.password,
             redirect: false,
@@ -44,7 +42,7 @@ export default function Register() {
             })
             window.location.href = "/"
         } else {
-            toast.error(res?.error, {
+            toast.error("Login failed", {
                 position: "top-center"
             })
         }

@@ -1,6 +1,5 @@
 
 import { getCategoryDetails } from "@/api/getCategoryDetails.api";
-import { getSubCategoriesByCategory } from "@/api/getSubCategoriesByCategory.api";
 import ProductCard from "@/app/_components/ProductCard/ProductCard";
 import { getRelatedCategory } from "@/Related/RelatedCategory";
 import { Product } from "@/types/product.type";

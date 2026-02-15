@@ -115,7 +115,10 @@ export default function Cart() {
   }
 
   useEffect(() => {
-    getUserCartProducts()
+    function fetchData() {
+      getUserCartProducts()
+    }
+    fetchData()
   }, [])
 
   // Calculate totals

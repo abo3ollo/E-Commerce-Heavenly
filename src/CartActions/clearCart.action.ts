@@ -2,10 +2,10 @@
 import { getMyToken } from "@/utilities/getMyToken";
 
 export async function clearCart() {
-  let token = await getMyToken();
+  const token = await getMyToken();
   if (!token) throw new Error("you should logged in first");
 
-  let res = await fetch(`https://ecommerce.routemisr.com/api/v1/cart`, {
+  const res = await fetch(`https://ecommerce.routemisr.com/api/v1/cart`, {
     method: "DELETE",
     headers: {
       token,
@@ -13,6 +13,6 @@ export async function clearCart() {
     },
   });
   
-  let payload = await res.json();
+  const payload = await res.json();
   return payload;
 }

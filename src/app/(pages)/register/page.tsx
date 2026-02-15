@@ -5,16 +5,16 @@ import { Input } from "@/components/ui/input"
 import { registerSchema, registerSchemaType } from "@/schema/register.schema"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import axios, { Axios } from "axios"
+import axios from "axios"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 
 
 export default function Register() {
 
-    let router = useRouter()
+    const router = useRouter()
 
-    let form = useForm<registerSchemaType>({
+    const form = useForm<registerSchemaType>({
         defaultValues: {
             name: "",
             email: "",
@@ -24,7 +24,7 @@ export default function Register() {
         },
         resolver: zodResolver(registerSchema)
     })
-    let { handleSubmit } = form
+    const { handleSubmit } = form
 
 
     function handleRegister(values: registerSchemaType) {

@@ -2,7 +2,7 @@ import Credentials from "next-auth/providers/credentials";
 import { NextAuthOptions } from "next-auth";
 import { jwtDecode } from "jwt-decode";
 
-export let authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
 
   pages: {
     signIn: "/login",
@@ -17,7 +17,7 @@ export let authOptions: NextAuthOptions = {
         password: {},
       },
       async authorize(credentials) {
-        let res = await fetch(`${process.env.API}/auth/signin`, {
+        const res = await fetch(`${process.env.API}/auth/signin`, {
           method: "POST",
           body: JSON.stringify({
             email: credentials?.email,
@@ -25,11 +25,11 @@ export let authOptions: NextAuthOptions = {
           }),
           headers: { "Content-Type": "application/json" },
         });
-        let payload = await res.json();
+        const payload = await res.json();
         console.log(payload);
 
         if (payload.message == "success") {
-          let decoded: { id: string } = jwtDecode(payload.token);
+          const decoded: { id: string } = jwtDecode(payload.token);
           console.log(decoded);
 
           return {

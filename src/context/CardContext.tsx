@@ -63,7 +63,10 @@ export function CartContextProvider({
   }
 
   useEffect(() => {
-    getLoggedUserCart();
+    function fetchData() {
+      getLoggedUserCart();
+    } 
+    fetchData();
   }, []);
 
   return (

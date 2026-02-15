@@ -12,10 +12,10 @@ import React from "react";
 
 
 export default async function ProductDetails({ params }: { params: Promise<{ id: string }> }) {
-  let { id } = await params;
+  const { id } = await params;
   console.log(id);
 
-  let data = await getProductDetails(id);
+  const data = await getProductDetails(id);
   console.log(data);
 
   if (!data) return <h1>no products details here</h1>

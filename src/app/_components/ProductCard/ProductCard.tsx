@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
 import { Product } from "@/types/product.type";
-import { ChevronRight, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

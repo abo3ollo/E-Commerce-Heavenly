@@ -1,16 +1,10 @@
-import React from "react";
-import {
-  Card,
-  
-} from "@/components/ui/card";
-import { ChevronRight, Heart } from "lucide-react";
 import { getAllProducts } from "@/api/allProducts.api";
 import ProductCard from "@/app/_components/ProductCard/ProductCard";
 import { Product } from "@/types/product.type";
 
 export default async function Products() {
 
-    let data = await getAllProducts()
+    const data = await getAllProducts()
     console.log(data);
      //call allproduct api 
   

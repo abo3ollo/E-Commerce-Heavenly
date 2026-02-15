@@ -1,7 +1,3 @@
-
-
-import { subCategory } from '@/types/subcategories.type';
-import SubCategoryCard from "@/app/_components/SubCategoryCard/SubCategoryCard";
 import { getCategories } from '@/api/categories.api';
 import { Category } from '@/types/categories.type';
 import CategoryCard from '@/app/_components/CategoryCard/CategoryCard';

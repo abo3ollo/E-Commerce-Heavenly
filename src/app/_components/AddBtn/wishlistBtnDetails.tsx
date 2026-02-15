@@ -7,10 +7,10 @@ import { useContext } from 'react';
 import { toast } from 'sonner';
 
 export default function WishlistBtnDetails({ id }: { id: string }) {
-        let {noOfWishlistItems, setNoOfWishlistItems} = useContext(WishlistContext)
+        const {noOfWishlistItems, setNoOfWishlistItems} = useContext(WishlistContext)!
     
     async function addProductsToWishlist(id: string) {
-        let res = await addToWishlist(id)
+        const res = await addToWishlist(id)
         console.log(res);
         if (res.status == "success") {
             toast.success("Product added successfully to your wishlist", {

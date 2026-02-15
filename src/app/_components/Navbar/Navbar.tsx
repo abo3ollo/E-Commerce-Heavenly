@@ -22,11 +22,11 @@ import { WishlistContext } from '@/context/WishlistContext';
 export default function Navbar() {
 
 
-  let { noOfItems, setNoOfItems } = useContext(CartContext)!
-  let {noOfWishlistItems, setNoOfWishlistItems} = useContext(WishlistContext)!
+  const { noOfItems} = useContext(CartContext)!
+  const {noOfWishlistItems} = useContext(WishlistContext)!
 
 
-  const { data: session, status } = useSession()
+  const { data: session} = useSession()
 
   function logOut() {
     signOut({
@@ -36,13 +36,13 @@ export default function Navbar() {
 
 
 
-  let path = usePathname()
+  const path = usePathname()
   return (
     <>
       {/* Header Banner */}
       <nav className="bg-white border-b border-gray-200 text-center  fixed start-0 top-0 end-0 z-50">
         <div className="bg-black text-white text-center py-2 px-4 text-sm">
-          Free Shipping on all orders until April . Don't miss !
+          Free Shipping on all orders until April . Don&apos;t miss !
         </div>
         <div className="container w-[80%] mx-auto py-4 ">
           <div className="flex items-center justify-between ">

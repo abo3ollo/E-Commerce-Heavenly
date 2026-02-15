@@ -6,10 +6,10 @@ import { toast } from 'sonner';
 
 export default function CartBtnDetails({ id }: { id: string }) {
 
-    let { noOfItems, setNoOfItems } = useContext(CartContext)!
+    const { noOfItems, setNoOfItems } = useContext(CartContext)!
 
     async function addProductToCart(id: string) {
-        let res = await addToCart(id)
+        const res = await addToCart(id)
         console.log(res);
 
         if (res.status == "success") {

@@ -1,7 +1,3 @@
-
-
-import ProductCard from "@/app/_components/ProductCard/ProductCard";
-import { Product } from "@/types/product.type";
 import { getAllBrands } from "@/api/allBrands.api";
 
 import BrandCard from "@/app/_components/BrandCard/BrandCard";

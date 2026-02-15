@@ -13,6 +13,7 @@ import { clearCart } from "@/CartActions/clearCart.action"
 import { CheckoutCash } from "@/CheckoutActions/CheckoutCash.action"
 import { getUserCart } from "@/CartActions/getUserCart.action"
 import { useState, useEffect } from "react"
+import { Cart, ProductCartType } from "@/types/cart.type"
 import CartLoading from "@/app/_components/Loading/CartLoading"
 
 
@@ -22,10 +23,10 @@ export default function Checkout() {
 
     const router = useRouter()
     const [paymentMethod, setPaymentMethod] = useState<"delivery" | "online">("delivery")
-    const [cartData, setCartData] = useState<any>(null)
+    const [cartData, setCartData] = useState<Cart | null>(null)
     const [isLoading, setIsLoading] = useState(true)
 
-                                        
+
 
     async function fetchCartData() {
         try {
@@ -42,7 +43,10 @@ export default function Checkout() {
     }
 
     useEffect(() => {
-        fetchCartData()
+        function fetchData() {
+            fetchCartData()
+        }
+        fetchData()
     }, [])
 
     const form = useForm({
@@ -199,7 +203,7 @@ export default function Checkout() {
                                 <span className="text-xl">💳</span>
                                 <div>
                                     <h2 className="font-bold text-lg">Payment Method</h2>
-                                    <p className="text-sm text-white">Choose how you'd like to pay</p>
+                                    <p className="text-sm text-white">Choose how you&apos;d like to pay</p>
                                 </div>
                             </div>
 
@@ -208,8 +212,8 @@ export default function Checkout() {
                                 <div
                                     onClick={() => setPaymentMethod("delivery")}
                                     className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${paymentMethod === "delivery"
-                                            ? "border-black bg-gray-200"
-                                            : "border-gray-200 bg-white hover:border-gray-300"
+                                        ? "border-black bg-gray-200"
+                                        : "border-gray-200 bg-white hover:border-gray-300"
                                         }`}
                                 >
                                     <div className="flex items-center justify-between">
@@ -221,8 +225,8 @@ export default function Checkout() {
                                             </div>
                                         </div>
                                         <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${paymentMethod === "delivery"
-                                                ? "border-black bg-black"
-                                                : "border-gray-300"
+                                            ? "border-black bg-black"
+                                            : "border-gray-300"
                                             }`}>
                                             {paymentMethod === "delivery" && <span className="text-white text-sm">✓</span>}
                                         </div>
@@ -233,8 +237,8 @@ export default function Checkout() {
                                 <div
                                     onClick={() => setPaymentMethod("online")}
                                     className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${paymentMethod === "online"
-                                            ? "border-black bg-gray-200"
-                                            : "border-gray-200 bg-white hover:border-gray-300"
+                                        ? "border-black bg-gray-200"
+                                        : "border-gray-200 bg-white hover:border-gray-300"
                                         }`}
                                 >
                                     <div className="flex items-center justify-between">
@@ -246,8 +250,8 @@ export default function Checkout() {
                                             </div>
                                         </div>
                                         <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${paymentMethod === "online"
-                                                ? "border-black bg-black"
-                                                : "border-gray-300"
+                                            ? "border-black bg-black"
+                                            : "border-gray-300"
                                             }`}>
                                             {paymentMethod === "online" && <span className="text-white text-sm">✓</span>}
                                         </div>
@@ -274,7 +278,7 @@ export default function Checkout() {
                                 <>
                                     {/* Products */}
                                     <div className="space-y-4 border-b pb-4 max-h-86 overflow-y-auto">
-                                        {cartData?.data?.products?.map((item: any, index: number) => (
+                                        {cartData?.data?.products?.map((item: ProductCartType, index: number) => (
                                             <div key={item.product._id || index} className="flex justify-between items-start gap-3">
                                                 <div className="flex items-center gap-3 flex-1">
                                                     <img
@@ -296,7 +300,7 @@ export default function Checkout() {
                                     <div className="space-y-3 border-b pb-4">
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">Subtotal</span>
-                                            <span className="font-medium text-gray-900">{cartData.data.totalCartPrice.toLocaleString('en-US')} EGP</span>
+                                            <span className="font-medium text-gray-900">{cartData?.data.totalCartPrice.toLocaleString('en-US')} EGP</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-600">🚚 Shipping</span>
@@ -308,7 +312,7 @@ export default function Checkout() {
                                     <div className="bg-blue-50 p-4 rounded-lg">
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-700 font-medium">Total</span>
-                                            <span className="text-2xl font-bold text-blue-600">{cartData.data.totalCartPrice.toLocaleString('en-US')} EGP</span>
+                                            <span className="text-2xl font-bold text-blue-600">{cartData?.data.totalCartPrice.toLocaleString('en-US')} EGP</span>
                                         </div>
                                     </div>
 

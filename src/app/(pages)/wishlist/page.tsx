@@ -1,28 +1,26 @@
 "use client"
 
 import AddToCardWishListBtn from '@/app/_components/AddBtn/AddToCardWishListBtn'
-import CartBtnDetails from '@/app/_components/AddBtn/CartBtnDetails'
 import WishlistLoading from '@/app/_components/Loading/WishlistLoading'
 import { WishlistContext } from '@/context/WishlistContext'
 import { WishlistProductsType} from '@/types/wishlist.type'
 import { getUserWishlist } from '@/WishlistActions/getUserWishlist.action'
 import { removeWishlistItem } from '@/WishlistActions/removeWishlistItem.action'
 import { X } from 'lucide-react'
-import Image from 'next/image'
-import React, { useContext, useEffect, useState } from 'react'
+import  { useContext, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 export default function Wishlist() {
-  let {noOfWishlistItems, setNoOfWishlistItems} = useContext(WishlistContext)!
+  const {noOfWishlistItems, setNoOfWishlistItems} = useContext(WishlistContext)!
   
 
-  let [wishlistProducts, setwishlistProducts] = useState([])
-  let [isLoading, setIsLoading] = useState(true)
-  let [isRemoving, setIsRemoving] = useState(false)
+  const [wishlistProducts, setwishlistProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isRemoving, setIsRemoving] = useState(false)
   
 
   async function getUserWishlistProducts() {
-    let res = await getUserWishlist()
+    const res = await getUserWishlist()
     console.log("wishlist", res.data);
     if (res.status == "success") {
       setwishlistProducts(res.data)
@@ -35,7 +33,7 @@ export default function Wishlist() {
 
   async function removeProductFromWishlist(id: string) {
     setIsRemoving(true)
-    let res = await removeWishlistItem(id)
+    const res = await removeWishlistItem(id)
     console.log(res.data);
     
     if (res.status == "success") {
@@ -58,7 +56,9 @@ export default function Wishlist() {
   }
 
   useEffect(() => {
-    getUserWishlistProducts()
+    function fetchData() {
+      getUserWishlistProducts()
+    } fetchData()
   }, [])
 
   return (
